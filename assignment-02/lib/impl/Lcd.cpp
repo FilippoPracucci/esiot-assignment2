@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include "../api/Lcd.hpp"
 
-Lcd::Lcd(int address, int cols, int rows) {
-    this->lcd = LiquidCrystal_I2C(address, cols, rows);
+Lcd::Lcd(int address, int cols, int rows) : lcd(address, cols, rows) {
     this->lcd.init();
     this->lcd.backlight();
 }
