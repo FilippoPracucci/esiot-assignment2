@@ -8,3 +8,4 @@ assignment-02/vscode/c_cpp_properties.json
 assignment-02/vscode/launch.json
 assignment-02/vscode/ipch
 **/README
+assignment-02/.gitignore
