@@ -2,3 +2,8 @@
 build
 bin
 .vscode
+assignment-02/pio
+assignment-02/vscode/.browse.c_cpp.db*
+assignment-02/vscode/c_cpp_properties.json
+assignment-02/vscode/launch.json
+assignment-02/vscode/ipch
