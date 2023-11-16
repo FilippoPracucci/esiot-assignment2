@@ -1,4 +1,4 @@
-#include "BlinkTask.hpp"
+#include "../lib/BlinkTask.hpp"
 
 BlinkTask::BlinkTask(int pin) {
     this->pin = pin;

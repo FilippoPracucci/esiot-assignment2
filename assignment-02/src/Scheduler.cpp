@@ -1,5 +1,5 @@
-#include "Scheduler.hpp"
 #include <TimerOne.h>
+#include "../lib/Scheduler.hpp"
 
 volatile bool timerFlag;
 

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../api/Lcd.hpp"
+#include "../lib/Lcd.hpp"
 
 Lcd::Lcd(int address, int cols, int rows) : lcd(address, cols, rows) {
     this->lcd.init();

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../api/Pir.hpp"
+#include "../lib/Pir.hpp"
 
 Pir::Pir(int pin) {
     this->pin = pin;

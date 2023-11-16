@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../api/Tmp.hpp"
+#include "../lib/Tmp.hpp"
 
 Tmp::Tmp(int pin) {
     this->pin = pin;

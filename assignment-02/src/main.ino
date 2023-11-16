@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "Scheduler.hpp"
-#include "BlinkTask.hpp"
+#include "../lib/Scheduler.hpp"
+#include "../lib/BlinkTask.hpp"
 
 Scheduler sched;
 

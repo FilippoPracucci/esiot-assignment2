@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../api/Gate.hpp"
+#include "../lib/Gate.hpp"
 
 Gate::Gate(int pin) {
     this->servo.attach(pin);

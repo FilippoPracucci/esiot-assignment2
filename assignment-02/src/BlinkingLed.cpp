@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../api/BlinkingLed.hpp"
+#include "../lib/BlinkingLed.hpp"
 
 void BlinkingLed::blink(int blinkTime) {
     this->switchOn();
