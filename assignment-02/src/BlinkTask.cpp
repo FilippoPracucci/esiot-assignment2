@@ -1,11 +1,10 @@
 #include "../lib/BlinkTask.hpp"
+#include "../lib/config.h"
 
-BlinkTask::BlinkTask(int pin) {
-    this->pin = pin;
-}
+BlinkTask::BlinkTask() {}
 
 void BlinkTask::init(int period) {
-    this->led = new Led(this->pin);
+    this->led = new Led(L2);
     Task::init(period);
     this->state = OFF;
 }

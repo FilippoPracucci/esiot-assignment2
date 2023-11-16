@@ -4,7 +4,7 @@
 #include <Servo.h>
 
 #define OPEN_ANGLE 90
-#define CLOSE_ANGLE 0
+#define CLOSE_ANGLE -90
 
 class Gate {
 

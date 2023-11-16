@@ -7,8 +7,10 @@ Gate::Gate(int pin) {
 
 void Gate::open() {
     this->servo.write(OPEN_ANGLE);
+    delay(50);
 }
 
 void Gate::close() {
     this->servo.write(CLOSE_ANGLE);
+    delay(50);
 }

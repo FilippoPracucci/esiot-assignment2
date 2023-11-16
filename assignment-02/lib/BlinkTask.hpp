@@ -7,7 +7,7 @@
 class BlinkTask : public Task {
 
 public:
-    BlinkTask(int pin);
+    BlinkTask();
     void init(int period);
     void tick();
 
