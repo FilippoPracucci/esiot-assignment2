@@ -16,5 +16,5 @@ bool Pir::detect() {
         }
     }
     return false; */
-    return analogRead(this->pin) >= 500;
+    return analogRead(this->pin) >= 250;
 }

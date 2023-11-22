@@ -15,10 +15,12 @@ public:
     bool isActive() override;
 
 private:
-    Gate* gate;
-    Led* l2;
-    Lcd* lcd;
+    Gate *gate;
+    Led *l1;
+    Led *l2;
+    Lcd *lcd;
     String readyMessage;
+    
 };
 
 #endif

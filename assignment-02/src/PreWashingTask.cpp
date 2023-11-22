@@ -14,17 +14,21 @@ void PreWashingTask::init() {
     this->lcd->clear();
     this->gate = new Gate(GATE_PIN);
     this->l2 = new Led(L2);
+    this->l1 = new Led(L1);
 }
 
 void PreWashingTask::tick() {
+    Serial.println("inizio tick prewashing");
     this->gate->on();
     this->gate->close();
     this->gate->off();
-    blinkStart = false;
+    /* blinkStart = false; */
+    this->l1->switchOff();
     this->l2->switchOn();
-    carEntered = true;
+    carEntered = false;
     this->lcd->showMessage(this->readyMessage);
     this->setActive(false);
+    Serial.println("fine tick prewashing");
 }
 
 bool PreWashingTask::isActive() {

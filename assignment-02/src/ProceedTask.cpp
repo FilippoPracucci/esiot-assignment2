@@ -16,18 +16,23 @@ void ProceedTask::init() {
 }
 
 void ProceedTask::tick() {
+    Serial.println("inizio tick proceed");
     this->lcd->showMessage(this->proceedMessage);
     unsigned long start = millis();
     unsigned long delta;
     while ((millis() - start) < N2) {
+        Serial.println("Sono nel while");
         delta = millis();
         while ((millis() - delta) < 500) {}
         if (this->sonar->getDistance() > MINDIST) {
+            Serial.println("Ho trovato una distanza maggiore a minDist");
             start = millis();
         }
     }
     carEntered = true;
+    blinkStart = false;
     this->setActive(false);
+    Serial.println("fine tick proceed");
 }
 
 bool ProceedTask::isActive() {

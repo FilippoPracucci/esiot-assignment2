@@ -5,6 +5,7 @@
 #include "../lib/WelcomeTask.hpp"
 #include "../lib/config.h"
 #include "../lib/ProceedTask.hpp"
+#include "../lib/PreWashingTask.hpp"
 
 Scheduler sched;
 bool carDetected = false;
@@ -29,6 +30,10 @@ void setup()
     Task *welcomeTask = new WelcomeTask(nullptr);
     welcomeTask->init();
     sched.addTask(welcomeTask);
+
+    Task *preWashingTask = new PreWashingTask();
+    preWashingTask->init();
+    sched.addTask(preWashingTask);
 
     Task *proceedTask = new ProceedTask();
     proceedTask->init();
