@@ -1,6 +1,8 @@
 #include "../lib/BlinkTask.hpp"
 #include "../lib/config.h"
 
+extern bool blinkStart;
+
 BlinkTask::BlinkTask() {}
 
 void BlinkTask::init(int period) {
@@ -20,4 +22,12 @@ void BlinkTask::tick() {
             this->state = ON;
             break;
     }
+}
+
+bool BlinkTask::isActive() {
+    if (blinkStart) {
+        this->setActive(true);
+        return true;
+    }
+    return false;
 }

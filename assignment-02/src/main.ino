@@ -7,6 +7,8 @@
 
 Scheduler sched;
 bool carDetected = false;
+bool blinkStart = false;
+bool carEntered = false;
 
 void setup()
 {
@@ -23,7 +25,7 @@ void setup()
     blinkTaskExtern->init(BLINK_PERIOD_START);
     sched.addTask(blinkTaskExtern);
 
-    Task *welcomeTask = new WelcomeTask(blinkTaskExtern);
+    Task *welcomeTask = new WelcomeTask(nullptr);
     welcomeTask->init(500);
     sched.addTask(welcomeTask);
 }

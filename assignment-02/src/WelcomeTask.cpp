@@ -3,9 +3,10 @@
 #include "../lib/BlinkTask.hpp"
 
 extern bool carDetected;
+extern bool blinkStart;
 
 WelcomeTask::WelcomeTask(Task* blinkTask) {
-    this->blinkTask = blinkTask;
+    /* this->blinkTask = blinkTask; */
 }
 
 void WelcomeTask::init(int periodo) {
@@ -25,8 +26,9 @@ void WelcomeTask::tick() {
     delay(2000);
     this->gate->close();
     this->gate->off();
-    this->blinkTask->setActive(true);
+    /* this->blinkTask->setActive(true); */
     this->setActive(false);
+    blinkStart = true;
     carDetected =  false;
 }
 
