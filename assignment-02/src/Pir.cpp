@@ -7,7 +7,7 @@ Pir::Pir(int pin) {
 }
 
 bool Pir::detect() {
-    if (digitalRead(this->pin) == HIGH) {
+    /* if (digitalRead(this->pin) == HIGH) {
         long t = millis();
         while (millis() - t < 500) {
             if (digitalRead(this->pin) == HIGH) {
@@ -15,5 +15,6 @@ bool Pir::detect() {
             }
         }
     }
-    return false;
+    return false; */
+    return analogRead(this->pin) >= 500;
 }

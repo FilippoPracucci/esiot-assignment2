@@ -1,10 +1,10 @@
 #ifndef __GATE__
 #define __GATE__
 
-#include <Servo.h>
+#include <ServoTimer2.h>
 
-#define OPEN_ANGLE 90
-#define CLOSE_ANGLE -90
+#define OPEN_ANGLE 750
+#define CLOSE_ANGLE 2250
 
 class Gate {
 
@@ -12,9 +12,12 @@ public:
     Gate(int pin);
     void open();
     void close();
+    void on();
+    void off();
 
 private:
-    Servo servo;
+    ServoTimer2 servo;
+    int pin;
 
 };
 

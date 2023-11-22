@@ -1,5 +1,6 @@
-#include <TimerOne.h>
 #include "../lib/Scheduler.hpp"
+
+#include <TimerOne.h>
 
 volatile bool timerFlag;
 
@@ -9,7 +10,6 @@ void timerHandler() {
 
 void Scheduler::init(int p) {
     this->generalPeriod = p;
-    timerFlag = false;
     long period = 1000l * this->generalPeriod;
     Timer1.initialize(period);
     Timer1.attachInterrupt(timerHandler);
