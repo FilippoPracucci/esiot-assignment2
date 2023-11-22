@@ -12,6 +12,10 @@ public:
         this->active = false;
     }
 
+    virtual void init() {
+        
+    }
+
     virtual void tick() = 0;
 
     bool updateAndCheckTime(int generalPeriod) {

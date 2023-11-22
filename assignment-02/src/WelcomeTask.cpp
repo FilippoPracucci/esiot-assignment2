@@ -9,7 +9,7 @@ WelcomeTask::WelcomeTask(Task* blinkTask) {
     /* this->blinkTask = blinkTask; */
 }
 
-void WelcomeTask::init(int periodo) {
+void WelcomeTask::init() {
     this->welcomeMessage = "Welcome";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS); //address in config file to change in hexadecimal
     this->lcd->clear();
@@ -23,8 +23,6 @@ void WelcomeTask::tick() {
     delay(N1);
     this->gate->on();
     this->gate->open();
-    delay(2000);
-    this->gate->close();
     this->gate->off();
     /* this->blinkTask->setActive(true); */
     this->setActive(false);

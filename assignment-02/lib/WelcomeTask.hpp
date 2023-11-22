@@ -10,7 +10,7 @@ class WelcomeTask : public Task {
 
 public:
     WelcomeTask(Task* blinkTask);
-    void init(int period);
+    void init();
     void tick();
     bool isActive() override;
 

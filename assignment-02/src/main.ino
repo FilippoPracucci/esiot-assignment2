@@ -4,6 +4,7 @@
 #include "../lib/PirDetectionTask.hpp"
 #include "../lib/WelcomeTask.hpp"
 #include "../lib/config.h"
+#include "../lib/ProceedTask.hpp"
 
 Scheduler sched;
 bool carDetected = false;
@@ -26,8 +27,12 @@ void setup()
     sched.addTask(blinkTaskExtern);
 
     Task *welcomeTask = new WelcomeTask(nullptr);
-    welcomeTask->init(500);
+    welcomeTask->init();
     sched.addTask(welcomeTask);
+
+    Task *proceedTask = new ProceedTask();
+    proceedTask->init();
+    sched.addTask(proceedTask);
 }
 
 void loop()
