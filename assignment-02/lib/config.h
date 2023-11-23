@@ -9,6 +9,8 @@
 
 #define N2 2000
 
+#define N3 10000
+
 #define LCD_ADDRESS 27
 
 #define LCD_COLS 16
@@ -26,6 +28,8 @@
 #define GATE_PIN 5
 
 #define ECHO_PIN 6
+
+#define BUTTON_PIN 8
 
 #define TRIG_PIN 7
 

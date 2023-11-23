@@ -7,14 +7,18 @@ Pir::Pir(int pin) {
 }
 
 bool Pir::detect() {
-    /* if (digitalRead(this->pin) == HIGH) {
+    if (digitalRead(this->pin) == HIGH) {
         long t = millis();
-        while (millis() - t < 500) {
+        while (millis() - t < 1500) {
             if (digitalRead(this->pin) == HIGH) {
+                Serial.println("Detected");
                 return true;
             }
         }
+        /* Serial.println("Detected");
+        return true; */
     }
-    return false; */
-    return analogRead(this->pin) >= 250;
+    Serial.println("Not detected");
+    return false;
+    /* return analogRead(this->pin) >= 250; */
 }

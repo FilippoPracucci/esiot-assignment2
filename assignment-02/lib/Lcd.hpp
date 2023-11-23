@@ -13,6 +13,8 @@ public:
 
 private:
     LiquidCrystal_I2C lcd;
+    int rows;
+    int cols;
 
 };
 

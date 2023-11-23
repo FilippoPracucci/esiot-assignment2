@@ -6,11 +6,14 @@
 #include "../lib/config.h"
 #include "../lib/ProceedTask.hpp"
 #include "../lib/PreWashingTask.hpp"
+#include "../lib/WashingTask.hpp"
 
 Scheduler sched;
 bool carDetected = false;
 bool blinkStart = false;
 bool carEntered = false;
+bool startWashing = false;
+bool washingFinished = false;
 
 void setup()
 {
@@ -38,6 +41,10 @@ void setup()
     Task *proceedTask = new ProceedTask();
     proceedTask->init();
     sched.addTask(proceedTask);
+
+    Task *washingTask = new WashingTask();
+    washingTask->init();
+    sched.addTask(washingTask);
 }
 
 void loop()

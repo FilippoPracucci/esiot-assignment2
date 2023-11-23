@@ -3,6 +3,7 @@
 
 extern bool blinkStart;
 extern bool carEntered;
+extern bool startWashing;
 
 PreWashingTask::PreWashingTask() {
     
@@ -27,6 +28,7 @@ void PreWashingTask::tick() {
     this->l2->switchOn();
     carEntered = false;
     this->lcd->showMessage(this->readyMessage);
+    startWashing = true;
     this->setActive(false);
     Serial.println("fine tick prewashing");
 }

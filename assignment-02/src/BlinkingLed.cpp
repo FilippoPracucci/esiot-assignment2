@@ -1,9 +1,13 @@
 #include <Arduino.h>
 #include "../lib/BlinkingLed.hpp"
 
+BlinkingLed::BlinkingLed(int pin) : Led(pin) {
+    this->led = new Led(pin);
+}
+
 void BlinkingLed::blink(int blinkTime) {
-    this->switchOn();
+    this->led->switchOn();
     delay(blinkTime);
-    this->switchOff();
+    this->led->switchOff();
     delay(blinkTime); //this can be unnecessary
 }
