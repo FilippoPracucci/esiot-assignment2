@@ -1,9 +1,10 @@
 #include "../lib/PirDetectionTask.hpp"
 
+extern bool startDetecting;
 extern bool carDetected;
 
 PirDetectionTask::PirDetectionTask(int pin) {
-    this->pin = A0;
+    this->pin = pin;
 }
 
 void PirDetectionTask::init(int period) {
@@ -17,4 +18,13 @@ void PirDetectionTask::tick() {
         carDetected = true;
         this->setActive(false);
     }
+    startDetecting = false;
+}
+
+bool PirDetectionTask::isActive() {
+    if (startDetecting) {
+        this->setActive(true);
+        return true;
+    }
+    return false;
 }

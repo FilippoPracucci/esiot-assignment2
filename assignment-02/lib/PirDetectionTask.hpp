@@ -10,6 +10,7 @@ public:
     PirDetectionTask(int pin);
     void init(int period);
     void tick();
+    bool isActive() override;
 
 private:
     int pin;

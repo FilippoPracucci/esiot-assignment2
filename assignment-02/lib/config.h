@@ -11,6 +11,8 @@
 
 #define N3 10000
 
+#define N4 2000
+
 #define LCD_ADDRESS 27
 
 #define LCD_COLS 16
@@ -29,9 +31,11 @@
 
 #define ECHO_PIN 6
 
+#define TRIG_PIN 7
+
 #define BUTTON_PIN 8
 
-#define TRIG_PIN 7
+#define TMP_PIN A0
 
 #define MINDIST 0.2
 

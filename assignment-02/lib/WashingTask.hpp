@@ -5,6 +5,7 @@
 #include "Button.hpp"
 #include "BlinkingLed.hpp"
 #include "Lcd.hpp"
+#include "Tmp.hpp"
 
 class WashingTask : public Task {
 
@@ -18,6 +19,8 @@ private:
     Button *button;
     Lcd *lcd;
     BlinkingLed *l2;
+    Tmp *tmp;
+    
 };
 
 #endif
