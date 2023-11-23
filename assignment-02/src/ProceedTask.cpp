@@ -9,6 +9,7 @@ ProceedTask::ProceedTask() {
 }
 
 void ProceedTask::init() {
+    Task::init(1);
     this->proceedMessage = "Proceed to the Washing Area";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
     this->lcd->clear();

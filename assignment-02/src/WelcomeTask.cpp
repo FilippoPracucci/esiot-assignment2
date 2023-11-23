@@ -10,6 +10,7 @@ WelcomeTask::WelcomeTask(Task* blinkTask) {
 }
 
 void WelcomeTask::init() {
+    Task::init(1);
     this->welcomeMessage = "Welcome";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS); //address in config file to change in hexadecimal
     this->lcd->clear();

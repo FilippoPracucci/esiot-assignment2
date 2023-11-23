@@ -9,6 +9,7 @@ WashingTask::WashingTask() {
 }
 
 void WashingTask::init() {
+    Task::init(1);
     Serial.println("Init washing");
     this->button = new Button(BUTTON_PIN);
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);

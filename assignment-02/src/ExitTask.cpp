@@ -9,6 +9,7 @@ ExitTask::ExitTask() {
 }
 
 void ExitTask::init() {
+    Task::init(1);
     this->l2 = new Led(L2);
     this->l3 = new Led(L3);
     this->gate = new Gate(GATE_PIN);

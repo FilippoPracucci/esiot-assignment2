@@ -20,7 +20,7 @@ bool washingFinished = false;
 void setup()
 {
     Serial.begin(9600);
-    sched.init(500);
+    sched.init(100);
     startDetecting = true;
 
     Task *pirDetectionTask = new PirDetectionTask(PIR_PIN);
@@ -56,14 +56,13 @@ void setup()
 
 void loop()
 {
-    Serial.println("Sto schedulando");
+    /* Serial.println("Sto schedulando");
     Serial.println("START DETECTING = " + String(startDetecting));
     Serial.println("CAR DETECTED = " + String(carDetected));
     Serial.println("BLINK START = " + String(blinkStart));
     Serial.println("CAR ENTERED = " + String(carEntered));
     Serial.println("START WASHING = " + String(startWashing));
     Serial.println("WASHING FINISHED = " + String(washingFinished));
-    Serial.println("\n\n\n\n\n");
-
+    Serial.println("\n\n\n\n\n"); */
     sched.schedule();
 }

@@ -10,6 +10,7 @@ PreWashingTask::PreWashingTask() {
 }
 
 void PreWashingTask::init() {
+    Task::init(1);
     this->readyMessage = "Ready to Wash";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
     this->lcd->clear();
