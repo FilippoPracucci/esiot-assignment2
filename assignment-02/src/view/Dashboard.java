@@ -14,8 +14,8 @@ public class Dashboard extends JFrame {
 
     private static final String FRAME_NAME = "Console Dashboard";
     private static final String BUTTON_NAME = "Maintenance done";
-    private static final double WIDTH_PERC = 0.4;
-    private static final double HEIGHT_PERC = 0.4;
+    private static final double WIDTH_PERC = 0.3;
+    private static final double HEIGHT_PERC = 0.3;
 
     private final JPanel panel;
     private final JPanel maintenancePanel;
@@ -31,11 +31,9 @@ public class Dashboard extends JFrame {
         this.errorArea = new JTextArea("Maintenance required");
         this.counterArea = new JTextArea("Counter");
 
-        this.button.setPreferredSize(new Dimension(200, 50));
-
         this.errorArea.setEditable(false);
         this.errorArea.setRows(5);
-        this.errorArea.setColumns(40);
+        this.errorArea.setColumns(30);
         this.counterArea.setEditable(false);
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
