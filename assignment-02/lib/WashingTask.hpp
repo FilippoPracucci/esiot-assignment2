@@ -6,6 +6,7 @@
 #include "BlinkingLed.hpp"
 #include "Lcd.hpp"
 #include "Tmp.hpp"
+#include "MsgService.h"
 
 class WashingTask : public Task {
 

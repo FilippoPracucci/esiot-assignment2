@@ -41,4 +41,6 @@
 
 #define MAXDIST 0.5
 
+#define MAXTEMP 10
+
 #endif
