@@ -3,7 +3,7 @@
 
 #define PIR_PERIOD 1000
 
-#define PIR_PIN 13
+#define PIR_PIN 12 //13
 
 #define N1 2500
 

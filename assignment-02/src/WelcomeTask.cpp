@@ -1,6 +1,5 @@
 #include "../lib/WelcomeTask.hpp"
 #include "../lib/config.h"
-#include "../lib/BlinkTask.hpp"
 
 extern bool carDetected;
 extern bool blinkStart;

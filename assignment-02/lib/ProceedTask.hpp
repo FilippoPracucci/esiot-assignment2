@@ -4,6 +4,7 @@
 #include "Lcd.hpp"
 #include "Sonar.hpp"
 #include "Task.hpp"
+#include "BlinkingLed.hpp"
 
 class ProceedTask : public Task {
 public:
@@ -16,6 +17,7 @@ private:
     Lcd* lcd;
     Sonar* sonar;
     String proceedMessage;
+    BlinkingLed *l2;
 
 };
 

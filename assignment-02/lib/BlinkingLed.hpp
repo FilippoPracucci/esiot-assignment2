@@ -1,4 +1,4 @@
-#ifndef __BLININGLED__
+#ifndef __BLINKINGLED__
 #define __BLINKINGLED__
 
 #include "Led.hpp"

@@ -14,6 +14,7 @@ void ProceedTask::init() {
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
     this->lcd->clear();
     this->sonar = new Sonar(ECHO_PIN, TRIG_PIN);
+    this->l2 = new BlinkingLed(L2);
 }
 
 void ProceedTask::tick() {
@@ -24,6 +25,7 @@ void ProceedTask::tick() {
     while ((millis() - start) < N2) {
         Serial.println("Sono nel while");
         delta = millis();
+        this->l2->blink(BLINK_PERIOD_START);
         while ((millis() - delta) < 500) {}
         if (this->sonar->getDistance() > MINDIST) {
             Serial.println("Ho trovato una distanza maggiore a minDist");

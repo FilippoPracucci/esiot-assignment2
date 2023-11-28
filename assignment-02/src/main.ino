@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "../lib/Scheduler.hpp"
-#include "../lib/BlinkTask.hpp"
 #include "../lib/PirDetectionTask.hpp"
 #include "../lib/WelcomeTask.hpp"
 #include "../lib/config.h"
@@ -28,10 +27,6 @@ void setup()
     sched.addTask(pirDetectionTask);
 
     pirDetectionTask->setActive(true);
-
-    Task *blinkTaskExtern = new BlinkTask();
-    blinkTaskExtern->init(BLINK_PERIOD_START);
-    sched.addTask(blinkTaskExtern);
 
     Task *welcomeTask = new WelcomeTask(nullptr);
     welcomeTask->init();
