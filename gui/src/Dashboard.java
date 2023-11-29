@@ -4,9 +4,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import communication.CommunicationChannel;
-import communication.SerialCommunicationChannel;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,23 +17,26 @@ public class Dashboard extends JFrame {
     private static final String BUTTON_NAME = "Maintenance done";
     private static final double WIDTH_PERC = 0.3;
     private static final double HEIGHT_PERC = 0.3;
-    private static final String PORT = "COM14";
+    private static final String PORT = "COM8";
     private static final int BAUD_RATE = 9600;
 
     private final JPanel panel;
     private final JPanel maintenancePanel;
-    static JButton button;
-    static JTextArea errorArea;
+    private static JButton button;
+    private static JTextArea errorArea;
     private final JTextArea counterArea;
+    private static SerialPort serialPort;
+    private static String text;
 
-    public Dashboard(CommunicationChannel channel) {
+    public Dashboard() {
         super(FRAME_NAME);
         this.panel = new JPanel(new BorderLayout());
         this.maintenancePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         button = new JButton(BUTTON_NAME);
-        //button.setEnabled(false);
+        button.setEnabled(false);
         errorArea = new JTextArea("");
-        this.counterArea = new JTextArea("Counter");
+        text = new String("Counter = ");
+        this.counterArea = new JTextArea(text);
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
@@ -73,24 +73,56 @@ public class Dashboard extends JFrame {
                     options[1]);
             /* Action if he/she confirms */
             if (result == 0) {
-                channel.sendMsg("fix");
+                try {
+                    serialPort.writeBytes("fix".getBytes());
+                    errorArea.setText("");
+                    button.setEnabled(false);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
     public static void main(String[] args) throws Exception {
-        final CommunicationChannel channel = new SerialCommunicationChannel(PORT, BAUD_RATE);
-        String msg;
-        new Dashboard(channel);
-        while (true) {
-            msg = channel.receiveMsg();
-            if (msg.compareToIgnoreCase("Maintenance required") == 0) {
-                errorArea.setText(msg);
-                button.setEnabled(true);
-            } else {
-                errorArea.setText("");
-                //button.setEnabled(false);
-            }
+        new Dashboard();
+        StringBuilder receivedData = new StringBuilder();
+        serialPort = new SerialPort(PORT);
+        try {
+            serialPort.openPort();
+            serialPort.setParams(
+                BAUD_RATE, 
+                SerialPort.DATABITS_8,
+                SerialPort.STOPBITS_1,
+                SerialPort.PARITY_NONE
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        serialPort.addEventListener(new SerialPortEventListener() {
+
+            @Override
+            public void serialEvent(SerialPortEvent event) {
+                if (event.isRXCHAR() && event.getEventValue() > 0) {
+                    try {
+                        byte[] buffer = serialPort.readBytes(event.getEventValue());
+                        String data = new String(buffer, "UTF-8");
+                        receivedData.append(data);
+                        int newLineIndex;
+                        while ((newLineIndex = receivedData.indexOf("\n")) != -1 ) {
+                            String completeString = receivedData.substring(0, newLineIndex);
+                            receivedData.delete(0, newLineIndex + 1);
+                            if (completeString.contains("warning")) {
+                                button.setEnabled(true);
+                                errorArea.setText("Maintenance required");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+        });
     }
 }

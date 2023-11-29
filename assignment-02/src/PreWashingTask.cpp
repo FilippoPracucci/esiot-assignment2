@@ -20,7 +20,7 @@ void PreWashingTask::init() {
 }
 
 void PreWashingTask::tick() {
-    Serial.println("inizio tick prewashing");
+    //Serial.println("inizio tick prewashing");
     this->gate->on();
     this->gate->close();
     this->gate->off();
@@ -31,7 +31,7 @@ void PreWashingTask::tick() {
     this->lcd->showMessage(this->readyMessage);
     startWashing = true;
     this->setActive(false);
-    Serial.println("fine tick prewashing");
+    //Serial.println("fine tick prewashing");
 }
 
 bool PreWashingTask::isActive() {

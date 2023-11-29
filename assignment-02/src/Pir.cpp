@@ -11,14 +11,14 @@ bool Pir::detect() {
         long t = millis();
         while (millis() - t < 1500) {
             if (digitalRead(this->pin) == HIGH) {
-                Serial.println("Detected");
+                //Serial.println("Detected");
                 return true;
             }
         }
-        /* Serial.println("Detected");
+        /* //Serial.println("Detected");
         return true; */
     }
-    Serial.println("Not detected");
+    //Serial.println("Not detected");
     return false;
     /* return analogRead(this->pin) >= 250; */
 }

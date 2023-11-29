@@ -25,11 +25,11 @@ void ExitTask::tick() {
     unsigned long start = millis();
     unsigned long delta;
     while ((millis() - start) < N4) {
-        Serial.println("Sono nel while");
+        //Serial.println("Sono nel while");
         delta = millis();
         while ((millis() - delta) < 500) {}
         if (this->sonar->getDistance() < MAXDIST) {
-            Serial.println("Ho trovato una distanza minore di maxDist");
+            //Serial.println("Ho trovato una distanza minore di maxDist");
             start = millis();
         }
     }

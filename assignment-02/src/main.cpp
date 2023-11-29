@@ -51,13 +51,13 @@ void setup()
 
 void loop()
 {
-    /* Serial.println("Sto schedulando");
-    Serial.println("START DETECTING = " + String(startDetecting));
-    Serial.println("CAR DETECTED = " + String(carDetected));
-    Serial.println("BLINK START = " + String(blinkStart));
-    Serial.println("CAR ENTERED = " + String(carEntered));
-    Serial.println("START WASHING = " + String(startWashing));
-    Serial.println("WASHING FINISHED = " + String(washingFinished));
-    Serial.println("\n\n\n\n\n"); */
+    /* //Serial.println("Sto schedulando");
+    //Serial.println("START DETECTING = " + String(startDetecting));
+    //Serial.println("CAR DETECTED = " + String(carDetected));
+    //Serial.println("BLINK START = " + String(blinkStart));
+    //Serial.println("CAR ENTERED = " + String(carEntered));
+    //Serial.println("START WASHING = " + String(startWashing));
+    //Serial.println("WASHING FINISHED = " + String(washingFinished));
+    //Serial.println("\n\n\n\n\n"); */
     sched.schedule();
 }
