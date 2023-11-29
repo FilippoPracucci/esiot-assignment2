@@ -9,6 +9,12 @@ PirDetectionTask::PirDetectionTask(int pin) {
 
 void PirDetectionTask::init(int period) {
     this->pir = new Pir(this->pin);
+    this->l2 = new Led(L2);
+    this->l2->switchOn();
+    for (int i = 0; i < 15; i++) {
+        delay(1000);
+    }
+    this->l2->switchOff();
     Task::init(period);
 }
 

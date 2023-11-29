@@ -41,7 +41,7 @@ public class Dashboard extends JFrame {
         textCounter = new String("Number of washes completed = ");
         counterArea = new JTextArea(textCounter + 0);
         textState = new String("Current state: ");
-        stateArea = new JTextArea(textState + "unknown");
+        stateArea = new JTextArea(textState + "waiting for system booting");
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
