@@ -17,6 +17,7 @@ void ExitTask::init() {
 }
 
 void ExitTask::tick() {
+    Serial.println("washing finished, car is exiting");
     this->l2->switchOff();
     this->l3->switchOn();
     this->gate->on();

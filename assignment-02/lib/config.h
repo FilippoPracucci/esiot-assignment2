@@ -25,7 +25,7 @@
 
 #define L3 2
 
-#define BLINK_PERIOD_START 100
+#define BLINK_PERIOD_START 10
 
 #define GATE_PIN 5
 
@@ -41,6 +41,6 @@
 
 #define MAXDIST 0.5
 
-#define MAXTEMP 10
+#define MAXTEMP 100
 
 #endif

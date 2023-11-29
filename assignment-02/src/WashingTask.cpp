@@ -18,6 +18,7 @@ void WashingTask::init() {
 }
 
 void WashingTask::tick() {
+    Serial.println("washing routine");
     //Serial.println("Sono il tick di washing");
     while (!this->button->isPressed()) {}
     unsigned long start = millis();

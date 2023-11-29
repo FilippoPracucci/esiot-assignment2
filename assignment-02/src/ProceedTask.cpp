@@ -18,6 +18,7 @@ void ProceedTask::init() {
 }
 
 void ProceedTask::tick() {
+    Serial.println("a car is entering");
     //Serial.println("inizio tick proceed");
     this->lcd->showMessage(this->proceedMessage);
     unsigned long start = millis();

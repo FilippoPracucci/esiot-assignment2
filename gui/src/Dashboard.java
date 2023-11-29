@@ -1,3 +1,4 @@
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,8 +26,10 @@ public class Dashboard extends JFrame {
     private static JButton button;
     private static JTextArea errorArea;
     private static JTextArea counterArea;
+    private static JTextArea stateArea;
     private static SerialPort serialPort;
     private static String textCounter;
+    private static String textState;
 
     public Dashboard() {
         super(FRAME_NAME);
@@ -37,11 +40,16 @@ public class Dashboard extends JFrame {
         errorArea = new JTextArea("");
         textCounter = new String("Number of washes completed = ");
         counterArea = new JTextArea(textCounter + 0);
+        textState = new String("Current state: ");
+        stateArea = new JTextArea(textState + "unknown");
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
         errorArea.setColumns(30);
+
         counterArea.setEditable(false);
+
+        stateArea.setEditable(false);
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -49,7 +57,11 @@ public class Dashboard extends JFrame {
         this.maintenancePanel.add(button);
 
         this.panel.add(this.maintenancePanel, BorderLayout.NORTH);
-        this.panel.add(counterArea, BorderLayout.CENTER);
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.add(counterArea);
+        centerPanel.add(stateArea);
+        this.panel.add(centerPanel, BorderLayout.CENTER);
 
         this.panel.setPreferredSize(new Dimension(Double.valueOf(screenSize.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(screenSize.getHeight() * HEIGHT_PERC).intValue()));
@@ -122,8 +134,9 @@ public class Dashboard extends JFrame {
                                 if (completeString.equals("warning")) {
                                     button.setEnabled(true);
                                     errorArea.setText("Maintenance required");
+                                } else {
+                                    stateArea.setText(textState + completeString);
                                 }
-
                             }
                         }
                     } catch (Exception e) {

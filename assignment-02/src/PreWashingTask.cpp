@@ -20,6 +20,7 @@ void PreWashingTask::init() {
 }
 
 void PreWashingTask::tick() {
+    Serial.println("prewashing routine");
     //Serial.println("inizio tick prewashing");
     this->gate->on();
     this->gate->close();

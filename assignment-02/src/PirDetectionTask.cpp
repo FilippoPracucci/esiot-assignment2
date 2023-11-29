@@ -13,6 +13,7 @@ void PirDetectionTask::init(int period) {
 }
 
 void PirDetectionTask::tick() {
+    Serial.println("looking for some cars");
     if (this->pir->detect()) {
         //Serial.println("Trovata una macchina");
         carDetected = true;
