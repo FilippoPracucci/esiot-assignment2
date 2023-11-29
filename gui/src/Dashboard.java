@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -27,9 +28,11 @@ public class Dashboard extends JFrame {
     private static JTextArea errorArea;
     private static JTextArea counterArea;
     private static JTextArea stateArea;
+    private static JTextArea tempArea;
     private static SerialPort serialPort;
     private static String textCounter;
     private static String textState;
+    private static String textTemp;
 
     public Dashboard() {
         super(FRAME_NAME);
@@ -42,14 +45,17 @@ public class Dashboard extends JFrame {
         counterArea = new JTextArea(textCounter + 0);
         textState = new String("Current state: ");
         stateArea = new JTextArea(textState + "waiting for system booting");
+        textTemp = new String("Current temperature: ");
+        tempArea = new JTextArea(textTemp);
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
         errorArea.setColumns(30);
+        errorArea.setForeground(Color.red);
 
         counterArea.setEditable(false);
-
         stateArea.setEditable(false);
+        tempArea.setEditable(false);
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -61,6 +67,7 @@ public class Dashboard extends JFrame {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.add(counterArea);
         centerPanel.add(stateArea);
+        centerPanel.add(tempArea);
         this.panel.add(centerPanel, BorderLayout.CENTER);
 
         this.panel.setPreferredSize(new Dimension(Double.valueOf(screenSize.getWidth() * WIDTH_PERC).intValue(),
@@ -125,15 +132,16 @@ public class Dashboard extends JFrame {
                             String completeString = receivedData.substring(0, newLineIndex);
                             receivedData.delete(0, newLineIndex + 1);
                             completeString = completeString.substring(0, completeString.length() - 1);
-                            /* System.out.println(completeString);
-                            System.out.println("Lunghezza ultimo messaggio ricevuto: " + completeString.length()); */
-                            /*if the string contains a number it indicates the number of washing completed*/
                             if (completeString.matches("[+-]?\\d*(\\.\\d+)?")) { 
                                 counterArea.setText(textCounter + Integer.parseInt(completeString));
                             } else {
                                 if (completeString.equals("warning")) {
                                     button.setEnabled(true);
                                     errorArea.setText("Maintenance required");
+                                } else if (completeString.contains("temp")) {
+                                    tempArea.setText(textTemp + completeString.substring(4, completeString.length()));
+                                    System.out.println("Temperatura completa: " + completeString);
+                                    System.out.println("temperatura: " + completeString.substring(4, completeString.length()));
                                 } else {
                                     stateArea.setText(textState + completeString);
                                 }

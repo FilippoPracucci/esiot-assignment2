@@ -41,6 +41,8 @@
 
 #define MAXDIST 0.5
 
-#define MAXTEMP 100
+#define MAXTEMP 33
+
+#define PIR_CALIBRATION_TIME 15
 
 #endif
