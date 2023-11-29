@@ -29,10 +29,12 @@ public class Dashboard extends JFrame {
     private static JTextArea counterArea;
     private static JTextArea stateArea;
     private static JTextArea tempArea;
+    private static JTextArea sleepArea;
     private static SerialPort serialPort;
     private static String textCounter;
     private static String textState;
     private static String textTemp;
+    private static String textSleep;
 
     public Dashboard() {
         super(FRAME_NAME);
@@ -47,6 +49,8 @@ public class Dashboard extends JFrame {
         stateArea = new JTextArea(textState + "waiting for system booting");
         textTemp = new String("Current temperature: ");
         tempArea = new JTextArea(textTemp);
+        textSleep = new String("Sleeping status: ");
+        sleepArea = new JTextArea(textSleep + "off");
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
@@ -56,6 +60,7 @@ public class Dashboard extends JFrame {
         counterArea.setEditable(false);
         stateArea.setEditable(false);
         tempArea.setEditable(false);
+        sleepArea.setEditable(false);
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -68,6 +73,7 @@ public class Dashboard extends JFrame {
         centerPanel.add(counterArea);
         centerPanel.add(stateArea);
         centerPanel.add(tempArea);
+        centerPanel.add(sleepArea);
         this.panel.add(centerPanel, BorderLayout.CENTER);
 
         this.panel.setPreferredSize(new Dimension(Double.valueOf(screenSize.getWidth() * WIDTH_PERC).intValue(),
@@ -140,8 +146,8 @@ public class Dashboard extends JFrame {
                                     errorArea.setText("Maintenance required");
                                 } else if (completeString.contains("temp")) {
                                     tempArea.setText(textTemp + completeString.substring(4, completeString.length()));
-                                    System.out.println("Temperatura completa: " + completeString);
-                                    System.out.println("temperatura: " + completeString.substring(4, completeString.length()));
+                                } else if (completeString.contains("sleep")) {
+                                    sleepArea.setText(textSleep + completeString.substring(5, completeString.length()));
                                 } else {
                                     stateArea.setText(textState + completeString);
                                 }
