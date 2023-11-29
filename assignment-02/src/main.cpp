@@ -15,6 +15,7 @@ bool blinkStart = false;
 bool carEntered = false;
 bool startWashing = false;
 bool washingFinished = false;
+int completedWashing = 0;
 
 void setup()
 {

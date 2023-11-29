@@ -15,18 +15,18 @@ public class Dashboard extends JFrame {
 
     private static final String FRAME_NAME = "Console Dashboard";
     private static final String BUTTON_NAME = "Maintenance done";
-    private static final double WIDTH_PERC = 0.3;
-    private static final double HEIGHT_PERC = 0.3;
-    private static final String PORT = "COM8";
+    private static final double WIDTH_PERC = 0.5;
+    private static final double HEIGHT_PERC = 0.5;
+    private static final String PORT = "COM9";
     private static final int BAUD_RATE = 9600;
 
     private final JPanel panel;
     private final JPanel maintenancePanel;
     private static JButton button;
     private static JTextArea errorArea;
-    private final JTextArea counterArea;
+    private static JTextArea counterArea;
     private static SerialPort serialPort;
-    private static String text;
+    private static String textCounter;
 
     public Dashboard() {
         super(FRAME_NAME);
@@ -35,13 +35,13 @@ public class Dashboard extends JFrame {
         button = new JButton(BUTTON_NAME);
         button.setEnabled(false);
         errorArea = new JTextArea("");
-        text = new String("Counter = ");
-        this.counterArea = new JTextArea(text);
+        textCounter = new String("Number of washes completed = ");
+        counterArea = new JTextArea(textCounter + 0);
 
         errorArea.setEditable(false);
         errorArea.setRows(5);
         errorArea.setColumns(30);
-        this.counterArea.setEditable(false);
+        counterArea.setEditable(false);
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -49,7 +49,7 @@ public class Dashboard extends JFrame {
         this.maintenancePanel.add(button);
 
         this.panel.add(this.maintenancePanel, BorderLayout.NORTH);
-        this.panel.add(this.counterArea, BorderLayout.CENTER);
+        this.panel.add(counterArea, BorderLayout.CENTER);
 
         this.panel.setPreferredSize(new Dimension(Double.valueOf(screenSize.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(screenSize.getHeight() * HEIGHT_PERC).intValue()));
@@ -112,9 +112,18 @@ public class Dashboard extends JFrame {
                         while ((newLineIndex = receivedData.indexOf("\n")) != -1 ) {
                             String completeString = receivedData.substring(0, newLineIndex);
                             receivedData.delete(0, newLineIndex + 1);
-                            if (completeString.contains("warning")) {
-                                button.setEnabled(true);
-                                errorArea.setText("Maintenance required");
+                            completeString = completeString.substring(0, completeString.length() - 1);
+                            /* System.out.println(completeString);
+                            System.out.println("Lunghezza ultimo messaggio ricevuto: " + completeString.length()); */
+                            /*if the string contains a number it indicates the number of washing completed*/
+                            if (completeString.matches("[+-]?\\d*(\\.\\d+)?")) { 
+                                counterArea.setText(textCounter + Integer.parseInt(completeString));
+                            } else {
+                                if (completeString.equals("warning")) {
+                                    button.setEnabled(true);
+                                    errorArea.setText("Maintenance required");
+                                }
+
                             }
                         }
                     } catch (Exception e) {

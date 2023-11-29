@@ -3,7 +3,7 @@
 
 extern bool washingFinished;
 extern bool startDetecting;
-
+extern int completedWashing;
 ExitTask::ExitTask() {
     
 }
@@ -37,6 +37,7 @@ void ExitTask::tick() {
     this->gate->close();
     this->gate->off();
     this->l3->switchOff();
+    Serial.println(String(++completedWashing));
     startDetecting = true;
     washingFinished = false;
     this->setActive(false);
