@@ -6,7 +6,8 @@
 #define OPEN_ANGLE 750
 #define CLOSE_ANGLE 2250
 
-class Gate {
+class Gate
+{
 
 public:
     Gate(int pin);
@@ -18,7 +19,6 @@ public:
 private:
     ServoTimer2 servo;
     int pin;
-
 };
 
 #endif

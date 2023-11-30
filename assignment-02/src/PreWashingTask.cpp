@@ -1,15 +1,16 @@
 #include "../lib/PreWashingTask.hpp"
 #include "../lib/config.h"
 
-extern bool blinkStart;
+extern bool canProceed;
 extern bool carEntered;
 extern bool startWashing;
 
-PreWashingTask::PreWashingTask() {
-    
+PreWashingTask::PreWashingTask()
+{
 }
 
-void PreWashingTask::init() {
+void PreWashingTask::init()
+{
     Task::init(1);
     this->readyMessage = "Ready to Wash";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
@@ -19,24 +20,24 @@ void PreWashingTask::init() {
     this->l1 = new Led(L1);
 }
 
-void PreWashingTask::tick() {
+void PreWashingTask::tick()
+{
     Serial.println("prewashing routine");
-    //Serial.println("inizio tick prewashing");
     this->gate->on();
     this->gate->close();
     this->gate->off();
-    /* blinkStart = false; */
     this->l1->switchOff();
     this->l2->switchOn();
-    carEntered = false;
     this->lcd->showMessage(this->readyMessage);
-    startWashing = true;
     this->setActive(false);
-    //Serial.println("fine tick prewashing");
+    startWashing = true;
+    carEntered = false;
 }
 
-bool PreWashingTask::isActive() {
-    if (carEntered) {
+bool PreWashingTask::isActive()
+{
+    if (carEntered)
+    {
         this->setActive(true);
         return true;
     }

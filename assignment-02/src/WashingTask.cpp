@@ -11,7 +11,6 @@ WashingTask::WashingTask()
 void WashingTask::init()
 {
     Task::init(1);
-    // Serial.println("Init washing");
     this->button = new Button(BUTTON_PIN);
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
     this->l2 = new BlinkingLed(L2);
@@ -21,19 +20,18 @@ void WashingTask::init()
 void WashingTask::tick()
 {
     Serial.println("washing routine");
-    // Serial.println("Sono il tick di washing");
     while (!this->button->isPressed())
     {
     }
     unsigned long start = millis();
     unsigned long startTemp;
-    bool flag = false;
+    bool fixFlag = false;
     while (millis() - start < N3)
     {
         float temperature = this->tmp->detect();
         this->l2->blink(250);
-        this->lcd->showMessage(String((N3 - (millis() - start)) / 1000));
-        // Serial.println("Temperatura = " + String(tmp->detect()));
+        int progressPerc = map((N3 - (millis() - start)), 0, 10000, 0, 100);
+        this->lcd->printBar(progressPerc);
         Serial.println("temp" + String(temperature));
         startTemp = millis();
         do
@@ -41,7 +39,8 @@ void WashingTask::tick()
             if (millis() - startTemp > N4)
             {
                 Serial.println("warning");
-                while (!flag)
+                this->lcd->showMessage("Detected a problem");
+                while (!fixFlag)
                 {
                     /* If there is something available in the serial line */
                     if (Serial.available() == 1)
@@ -49,12 +48,12 @@ void WashingTask::tick()
                         String answer = Serial.readStringUntil('\n');
                         if (answer == "fix")
                         {
-                            flag = true;
+                            fixFlag = true;
                         }
                     }
                 }
                 start = millis();
-                flag = false;
+                fixFlag = false;
                 break;
             }
         } while (temperature > MAXTEMP);
@@ -62,7 +61,6 @@ void WashingTask::tick()
     this->lcd->showMessage("Washing complete you can leave!");
     startWashing = false;
     washingFinished = true;
-    // Serial.println("Fine tick washing");
     this->setActive(false);
 }
 

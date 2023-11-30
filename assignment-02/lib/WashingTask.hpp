@@ -7,7 +7,8 @@
 #include "Lcd.hpp"
 #include "Tmp.hpp"
 
-class WashingTask : public Task {
+class WashingTask : public Task
+{
 
 public:
     WashingTask();
@@ -20,7 +21,6 @@ private:
     Lcd *lcd;
     BlinkingLed *l2;
     Tmp *tmp;
-    
 };
 
 #endif

@@ -2,13 +2,14 @@
 #include "../lib/config.h"
 
 extern bool carEntered;
-extern bool blinkStart;
+extern bool canProceed;
 
-ProceedTask::ProceedTask() {
-
+ProceedTask::ProceedTask()
+{
 }
 
-void ProceedTask::init() {
+void ProceedTask::init()
+{
     Task::init(1);
     this->proceedMessage = "Proceed to the Washing Area";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
@@ -17,30 +18,33 @@ void ProceedTask::init() {
     this->l2 = new BlinkingLed(L2);
 }
 
-void ProceedTask::tick() {
+void ProceedTask::tick()
+{
     Serial.println("a car is entering");
-    //Serial.println("inizio tick proceed");
     this->lcd->showMessage(this->proceedMessage);
     unsigned long start = millis();
     unsigned long delta;
-    while ((millis() - start) < N2) {
-        //Serial.println("Sono nel while");
+    while ((millis() - start) < N2)
+    {
         delta = millis();
         this->l2->blink(BLINK_PERIOD_START);
-        while ((millis() - delta) < 500) {}
-        if (this->sonar->getDistance() > MINDIST) {
-            //Serial.println("Ho trovato una distanza maggiore a minDist");
+        while ((millis() - delta) < 300)
+        {
+        }
+        if (this->sonar->getDistance() > MINDIST)
+        {
             start = millis();
         }
     }
     carEntered = true;
-    blinkStart = false;
+    canProceed = false;
     this->setActive(false);
-    //Serial.println("fine tick proceed");
 }
 
-bool ProceedTask::isActive() {
-    if (blinkStart) {
+bool ProceedTask::isActive()
+{
+    if (canProceed)
+    {
         this->setActive(true);
         return true;
     }

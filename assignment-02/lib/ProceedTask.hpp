@@ -6,7 +6,8 @@
 #include "Task.hpp"
 #include "BlinkingLed.hpp"
 
-class ProceedTask : public Task {
+class ProceedTask : public Task
+{
 public:
     ProceedTask();
     void init();
@@ -14,11 +15,10 @@ public:
     bool isActive() override;
 
 private:
-    Lcd* lcd;
-    Sonar* sonar;
+    Lcd *lcd;
+    Sonar *sonar;
     String proceedMessage;
     BlinkingLed *l2;
-
 };
 
 #endif

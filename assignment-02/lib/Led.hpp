@@ -1,7 +1,8 @@
 #ifndef __LED__
 #define __LED__
 
-class Led {
+class Led
+{
 
 public:
     Led(int pin);
@@ -10,7 +11,6 @@ public:
 
 private:
     int pin;
-
 };
 
 #endif

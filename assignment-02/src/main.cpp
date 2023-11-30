@@ -11,7 +11,7 @@
 Scheduler sched;
 bool startDetecting;
 bool carDetected = false;
-bool blinkStart = false;
+bool canProceed = false;
 bool carEntered = false;
 bool startWashing = false;
 bool washingFinished = false;
@@ -27,19 +27,17 @@ void setup()
     pirDetectionTask->init(PIR_PERIOD);
     sched.addTask(pirDetectionTask);
 
-    pirDetectionTask->setActive(true);
-
-    Task *welcomeTask = new WelcomeTask(nullptr);
+    Task *welcomeTask = new WelcomeTask();
     welcomeTask->init();
     sched.addTask(welcomeTask);
-
-    Task *preWashingTask = new PreWashingTask();
-    preWashingTask->init();
-    sched.addTask(preWashingTask);
 
     Task *proceedTask = new ProceedTask();
     proceedTask->init();
     sched.addTask(proceedTask);
+
+    Task *preWashingTask = new PreWashingTask();
+    preWashingTask->init();
+    sched.addTask(preWashingTask);
 
     Task *washingTask = new WashingTask();
     washingTask->init();
@@ -48,17 +46,10 @@ void setup()
     Task *exitTask = new ExitTask();
     exitTask->init();
     sched.addTask(exitTask);
+    Serial.println("Fine setup " + String(completedWashing));
 }
 
 void loop()
 {
-    /* //Serial.println("Sto schedulando");
-    //Serial.println("START DETECTING = " + String(startDetecting));
-    //Serial.println("CAR DETECTED = " + String(carDetected));
-    //Serial.println("BLINK START = " + String(blinkStart));
-    //Serial.println("CAR ENTERED = " + String(carEntered));
-    //Serial.println("START WASHING = " + String(startWashing));
-    //Serial.println("WASHING FINISHED = " + String(washingFinished));
-    //Serial.println("\n\n\n\n\n"); */
     sched.schedule();
 }

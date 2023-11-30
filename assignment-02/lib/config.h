@@ -3,7 +3,7 @@
 
 #define PIR_PERIOD 1000
 
-#define PIR_PIN 12 //13
+#define PIR_PIN 2 //13
 
 #define N1 2500
 
@@ -23,7 +23,7 @@
 
 #define L2 3
 
-#define L3 2
+#define L3 12
 
 #define BLINK_PERIOD_START 10
 

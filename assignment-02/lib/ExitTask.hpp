@@ -6,7 +6,8 @@
 #include "Gate.hpp"
 #include "Sonar.hpp"
 
-class ExitTask : public Task {
+class ExitTask : public Task
+{
 
 public:
     ExitTask();

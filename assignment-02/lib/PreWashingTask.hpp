@@ -6,7 +6,8 @@
 #include "Gate.hpp"
 #include "Lcd.hpp"
 
-class PreWashingTask : public Task {
+class PreWashingTask : public Task
+{
 
 public:
     PreWashingTask();
@@ -20,7 +21,6 @@ private:
     Led *l2;
     Lcd *lcd;
     String readyMessage;
-    
 };
 
 #endif

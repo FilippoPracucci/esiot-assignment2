@@ -6,20 +6,20 @@
 #include "Gate.hpp"
 #include "Lcd.hpp"
 
-class WelcomeTask : public Task {
+class WelcomeTask : public Task
+{
 
 public:
-    WelcomeTask(Task* blinkTask);
+    WelcomeTask();
     void init();
     void tick();
     bool isActive() override;
 
 private:
-    Led* l1;
+    Led *l1;
     String welcomeMessage;
-    Lcd* lcd;
-    Gate* gate;
-    Task* blinkTask;
+    Lcd *lcd;
+    Gate *gate;
 };
 
 #endif

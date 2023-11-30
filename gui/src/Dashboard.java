@@ -138,6 +138,7 @@ public class Dashboard extends JFrame {
                             String completeString = receivedData.substring(0, newLineIndex);
                             receivedData.delete(0, newLineIndex + 1);
                             completeString = completeString.substring(0, completeString.length() - 1);
+                            System.out.println("Ricevuto: " + completeString);
                             if (completeString.matches("[+-]?\\d*(\\.\\d+)?")) { 
                                 counterArea.setText(textCounter + Integer.parseInt(completeString));
                             } else {
