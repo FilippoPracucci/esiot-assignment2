@@ -17,6 +17,7 @@ void ProceedTask::init()
     this->sonar = new Sonar(ECHO_PIN, TRIG_PIN);
     this->l2 = new BlinkingLed(L2);
     this->monitoringTimer = -1;
+    this->setState(MONITORING);
 }
 
 void ProceedTask::tick()
