@@ -15,6 +15,8 @@ public:
     bool isActive() override;
 
 private:
+    enum {MONITORING, END} state;
+    long monitoringTimer;
     Lcd *lcd;
     Sonar *sonar;
     String proceedMessage;

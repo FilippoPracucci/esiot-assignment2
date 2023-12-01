@@ -21,24 +21,33 @@ void ProceedTask::init()
 void ProceedTask::tick()
 {
     Serial.println("a car is entering");
-    this->lcd->showMessage(this->proceedMessage);
-    unsigned long start = millis();
-    unsigned long delta;
-    while ((millis() - start) < N2)
+    switch (this->state)
     {
-        delta = millis();
-        this->l2->blink(BLINK_PERIOD_START);
-        while ((millis() - delta) < 300)
-        {
-        }
-        if (this->sonar->getDistance() > MINDIST)
-        {
-            start = millis();
-        }
-    }
-    carEntered = true;
-    canProceed = false;
-    this->setActive(false);
+        case MONITORING:
+            this->lcd->showMessage(this->proceedMessage);
+            if (this->sonar->getDistance() < MINDIST)
+            {
+                if (this->monitoringTimer == -1)
+                {
+                    this->monitoringTimer = millis();
+                } else
+                {
+                    if (millis() - this->monitoringTimer)
+                    {
+                        this->setState(END);
+                    }
+                }
+            }
+            else {
+                this->monitoringTimer = -1;
+            }
+            break;
+        case END:
+            carEntered = true;
+            canProceed = false;
+            this->setActive(false);
+            break;
+    }    
 }
 
 bool ProceedTask::isActive()
