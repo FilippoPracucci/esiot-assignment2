@@ -16,6 +16,8 @@ public:
     bool isActive() override;
 
 private:
+    enum {OPEN, DETECTING, CLOSE} state;
+    long monitoringTimer;
     Led *l2;
     Led *l3;
     Gate *gate;

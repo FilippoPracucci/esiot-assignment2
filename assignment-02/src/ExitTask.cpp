@@ -20,34 +20,49 @@ void ExitTask::init()
 void ExitTask::tick()
 {
     Serial.println("washing finished, car is exiting");
-    this->l2->switchOff();
-    this->l3->switchOn();
-    this->gate->on();
-    this->gate->open();
-    this->gate->off();
-    unsigned long start = millis();
-    unsigned long delta;
-    while ((millis() - start) < N4)
+    switch (this->state)
     {
-        delta = millis();
-        while ((millis() - delta) < 500)
+    case OPEN:
+        this->l2->switchOff();
+        this->l3->switchOn();
+        this->gate->on();
+        this->gate->open();
+        this->gate->off();
+        this->monitoringTimer = -1;
+        this->setState(DETECTING);
+        break;
+    case DETECTING:
+        if (this->sonar->getDistance() > MAXDIST)
         {
+            if (this->monitoringTimer == -1)
+            {
+                this->monitoringTimer = millis();
+            }
+            else
+            {
+                if (millis() - this->monitoringTimer > N4)
+                {
+                    this->setState(END);
+                }
+            }
         }
-        if (this->sonar->getDistance() < MAXDIST)
+        else
         {
-            start = millis();
+            this->monitoringTimer = -1;
         }
+        break;
+    case CLOSE:
+        this->gate->on();
+        this->gate->close();
+        this->gate->off();
+        this->l3->switchOff();
+        Serial.println(String(++completedWashing));
+        startDetecting = true;
+        washingFinished = false;
+        this->setActive(false);
+        this->setState(OPEN);
+        break;
     }
-    this->gate->on();
-    this->gate->close();
-    this->gate->off();
-    this->l3->switchOff();
-
-    Serial.println(String(++completedWashing));
-
-    startDetecting = true;
-    washingFinished = false;
-    this->setActive(false);
 }
 
 bool ExitTask::isActive()

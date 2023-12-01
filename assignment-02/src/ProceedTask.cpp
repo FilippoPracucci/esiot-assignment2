@@ -16,6 +16,7 @@ void ProceedTask::init()
     this->lcd->clear();
     this->sonar = new Sonar(ECHO_PIN, TRIG_PIN);
     this->l2 = new BlinkingLed(L2);
+    this->monitoringTimer = -1;
 }
 
 void ProceedTask::tick()
@@ -23,31 +24,35 @@ void ProceedTask::tick()
     Serial.println("a car is entering");
     switch (this->state)
     {
-        case MONITORING:
-            this->lcd->showMessage(this->proceedMessage);
-            if (this->sonar->getDistance() < MINDIST)
+    case MONITORING:
+        this->lcd->showMessage(this->proceedMessage);
+        if (this->sonar->getDistance() < MINDIST)
+        {
+            if (this->monitoringTimer == -1)
             {
-                if (this->monitoringTimer == -1)
+                this->monitoringTimer = millis();
+            }
+            else
+            {
+                if (millis() - this->monitoringTimer > N2)
                 {
-                    this->monitoringTimer = millis();
-                } else
-                {
-                    if (millis() - this->monitoringTimer)
-                    {
-                        this->setState(END);
-                    }
+                    this->setState(END);
                 }
             }
-            else {
-                this->monitoringTimer = -1;
-            }
-            break;
-        case END:
-            carEntered = true;
-            canProceed = false;
-            this->setActive(false);
-            break;
-    }    
+        }
+        else
+        {
+            this->monitoringTimer = -1;
+        }
+        break;
+    case END:
+        carEntered = true;
+        canProceed = false;
+        this->setActive(false);
+        this->setState(MONITORING);
+        this->monitoringTimer = -1;
+        break;
+    }
 }
 
 bool ProceedTask::isActive()

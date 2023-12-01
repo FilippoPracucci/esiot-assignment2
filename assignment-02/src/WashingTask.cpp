@@ -81,6 +81,7 @@ void WashingTask::tick()
         startWashing = false;
         washingFinished = true;
         this->setActive(false);
+        this->setState(WAITING_BUTTON);
         break;
     }
 }

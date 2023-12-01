@@ -23,27 +23,27 @@ void setup()
     sched.init(100);
     startDetecting = true;
 
-    Task *pirDetectionTask = new PirDetectionTask(PIR_PIN);
+    Task *pirDetectionTask = new PirDetectionTask(PIR_PIN); //
     pirDetectionTask->init(PIR_PERIOD);
     sched.addTask(pirDetectionTask);
 
-    Task *welcomeTask = new WelcomeTask();
+    Task *welcomeTask = new WelcomeTask(); //
     welcomeTask->init();
     sched.addTask(welcomeTask);
 
-    Task *proceedTask = new ProceedTask();
+    Task *proceedTask = new ProceedTask(); //
     proceedTask->init();
     sched.addTask(proceedTask);
 
-    Task *preWashingTask = new PreWashingTask();
+    Task *preWashingTask = new PreWashingTask(); //
     preWashingTask->init();
     sched.addTask(preWashingTask);
 
-    Task *washingTask = new WashingTask();
+    Task *washingTask = new WashingTask(); //
     washingTask->init();
     sched.addTask(washingTask);
 
-    Task *exitTask = new ExitTask();
+    Task *exitTask = new ExitTask(); 
     exitTask->init();
     sched.addTask(exitTask);
     Serial.println("Fine setup " + String(completedWashing));

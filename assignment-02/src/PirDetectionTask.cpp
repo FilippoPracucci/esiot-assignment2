@@ -61,6 +61,7 @@ void PirDetectionTask::tick()
         carDetected = true;
         this->setActive(false);
         startDetecting = false;
+        this->setState(DETECTING);
         break;
     }
 }
