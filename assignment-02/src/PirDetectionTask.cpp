@@ -15,12 +15,12 @@ void PirDetectionTask::init(int period)
         RISING);
     this->pir = new Pir(this->pin);
     this->l2 = new Led(L2);
-    this->l2->switchOn();
+    /* this->l2->switchOn();
     for (int i = 0; i < PIR_CALIBRATION_TIME; i++)
     {
         delay(1000);
     }
-    this->l2->switchOff();
+    this->l2->switchOff(); */
     this->setState(DETECTING);
     Task::init(period);
 }
@@ -37,8 +37,12 @@ void PirDetectionTask::wake()
 
 void PirDetectionTask::tick()
 {
-    Serial.println("looking for some cars");
-    switch (this->state)
+    if (this->sendUpdate)
+    {
+        Serial.println("looking for some cars");
+        this->sendUpdate = false;
+    }
+    switch (this->currenState)
     {
     case DETECTING:
         if (this->pir->detect())
@@ -62,6 +66,7 @@ void PirDetectionTask::tick()
         this->setActive(false);
         startDetecting = false;
         this->setState(DETECTING);
+        this->sendUpdate = true;
         break;
     }
 }

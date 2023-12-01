@@ -8,8 +8,9 @@ class Task
 
 public:
     
-    int state;
+    int currenState;
     long stateTime;
+    bool sendUpdate = true;
 
     virtual void init(int period)
     {
@@ -48,9 +49,9 @@ public:
         this->active = state;
     }
 
-    void setState(int s)
+    void setState(int newState)
     {
-        this->state = s;
+        this->currenState = newState;
         this->stateTime = millis();
     }
 

@@ -100,6 +100,7 @@ public class Dashboard extends JFrame {
             if (result == 0) {
                 try {
                     serialPort.writeBytes("fix".getBytes());
+                    System.out.println("Ho mandato fix");
                     errorArea.setText("");
                     button.setEnabled(false);
                 } catch (Exception ex) {

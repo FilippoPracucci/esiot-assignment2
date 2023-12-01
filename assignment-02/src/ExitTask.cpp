@@ -20,8 +20,12 @@ void ExitTask::init()
 
 void ExitTask::tick()
 {
-    Serial.println("washing finished, car is exiting");
-    switch (this->state)
+    if (this->sendUpdate)
+    {
+        Serial.println("washing finished, car is exiting");
+        this->sendUpdate = false;
+    }
+    switch (this->currenState)
     {
     case OPEN:
         this->l2->switchOff();
@@ -43,7 +47,7 @@ void ExitTask::tick()
             {
                 if (millis() - this->monitoringTimer > N4)
                 {
-                    this->setState(END);
+                    this->setState(CLOSE);
                 }
             }
         }
@@ -62,6 +66,7 @@ void ExitTask::tick()
         washingFinished = false;
         this->setActive(false);
         this->setState(OPEN);
+        this->sendUpdate = true;
         break;
     }
 }

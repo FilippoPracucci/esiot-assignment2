@@ -21,6 +21,7 @@ private:
     Sonar *sonar;
     String proceedMessage;
     BlinkingLed *l2;
+    bool changeMsg = true;
 };
 
 #endif

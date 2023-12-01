@@ -20,6 +20,7 @@ void WelcomeTask::init()
 
 void WelcomeTask::tick()
 {
+
     Serial.println("car detected, welcome routine");
     this->l1->switchOn();
     this->lcd->showMessage(this->welcomeMessage);

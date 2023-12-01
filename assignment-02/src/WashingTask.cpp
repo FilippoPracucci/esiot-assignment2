@@ -21,8 +21,12 @@ void WashingTask::init()
 
 void WashingTask::tick()
 {
-    Serial.println("washing routine");
-    switch (this->state)
+    if (this->sendUpdate)
+    {
+        Serial.println("washing routine");
+        this->sendUpdate = false;
+    }
+    switch (this->currenState)
     {
     case WAITING_BUTTON:
         if (this->button->isPressed())
@@ -32,6 +36,9 @@ void WashingTask::tick()
         }
         break;
     case WASHING:
+        Serial.println("Sono washing");
+        this->sendWarning = true;
+        this->fixFlag = false;
         if (this->elapsedTime() > N3)
         {
             this->setState(END);
@@ -50,7 +57,7 @@ void WashingTask::tick()
                 }
                 else
                 {
-                    if (millis() -  this->startTemp > N4)
+                    if (millis() - this->startTemp > N4)
                     {
                         this->setState(ERROR);
                     }
@@ -63,11 +70,35 @@ void WashingTask::tick()
         }
         break;
     case ERROR:
-        Serial.println("warning");
-        this->lcd->showMessage("Detected a problem");
-        /* If there is something available in the serial line */
-        if (Serial.available() == 1)
+        Serial.println("Sono error");
+        if (this->sendWarning)
         {
+            Serial.println("warning");
+            this->sendWarning = false;
+        }
+        if (this->changeMsg)
+        {
+            this->lcd->showMessage("Detected a problem");
+            this->changeMsg = false;
+        }
+        /* If there is something available in the serial line */
+        while (!fixFlag)
+        {
+            /* If there is something available in the serial line */
+            if (Serial.available() == 1)
+            {
+                String answer = Serial.readStringUntil('\n');
+                if (answer == "fix")
+                {
+                    this->setState(WASHING);
+                    this->startTemp = -1;
+                    this->fixFlag = true;
+                }
+            }
+        }
+        /* if (Serial.available() == 1)
+        {
+            Serial.println("LEGGO SERIALE");
             String answer = Serial.readStringUntil('\n');
             if (answer == "fix")
             {
@@ -75,6 +106,10 @@ void WashingTask::tick()
                 this->startTemp = -1;
             }
         }
+        else
+        {
+            Serial.println("Nulla sulla seriale di arduino");
+        } */
         break;
     case END:
         this->lcd->showMessage("Washing complete you can leave!");
@@ -82,6 +117,8 @@ void WashingTask::tick()
         washingFinished = true;
         this->setActive(false);
         this->setState(WAITING_BUTTON);
+        this->changeMsg = true;
+        this->sendUpdate = true;
         break;
     }
 }

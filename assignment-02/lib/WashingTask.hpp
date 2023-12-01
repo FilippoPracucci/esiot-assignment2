@@ -15,14 +15,17 @@ public:
     void init();
     void tick();
     bool isActive() override;
+    bool sendWarning;
+    bool fixFlag;
 
 private:
     enum {WAITING_BUTTON, WASHING, ERROR, END} state;
-    unsigned long startTemp;
+    signed long startTemp;
     Button *button;
     Lcd *lcd;
     BlinkingLed *l2;
     Tmp *tmp;
+    bool changeMsg = true;
 };
 
 #endif

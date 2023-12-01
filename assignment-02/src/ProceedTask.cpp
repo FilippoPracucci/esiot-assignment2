@@ -22,11 +22,19 @@ void ProceedTask::init()
 
 void ProceedTask::tick()
 {
-    Serial.println("a car is entering");
-    switch (this->state)
+    if (this->sendUpdate)
+    {
+        Serial.println("a car is entering");
+        this->sendUpdate = false;
+    }
+    switch (this->currenState)
     {
     case MONITORING:
-        this->lcd->showMessage(this->proceedMessage);
+        if (this->changeMsg)
+        {
+            this->lcd->showMessage(this->proceedMessage);
+            this->changeMsg = false;
+        }
         if (this->sonar->getDistance() < MINDIST)
         {
             if (this->monitoringTimer == -1)
@@ -51,7 +59,9 @@ void ProceedTask::tick()
         canProceed = false;
         this->setActive(false);
         this->setState(MONITORING);
+        this->changeMsg = true;
         this->monitoringTimer = -1;
+        this->sendUpdate = true;
         break;
     }
 }
