@@ -17,6 +17,8 @@ public:
     bool isActive() override;
 
 private:
+    enum {WAITING_BUTTON, WASHING, ERROR, END} state;
+    unsigned long startTemp;
     Button *button;
     Lcd *lcd;
     BlinkingLed *l2;
