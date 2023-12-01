@@ -17,6 +17,7 @@ public:
     void wake();
 
 private:
+    enum {DETECTING, END} state;
     int pin;
     Pir* pir;
     Led *l2;

@@ -21,6 +21,7 @@ void PirDetectionTask::init(int period)
         delay(1000);
     }
     this->l2->switchOff();
+    this->setState(DETECTING);
     Task::init(period);
 }
 
@@ -37,23 +38,31 @@ void PirDetectionTask::wake()
 void PirDetectionTask::tick()
 {
     Serial.println("looking for some cars");
-    if (this->pir->detect())
+    switch (this->state)
     {
+    case DETECTING:
+        if (this->pir->detect())
+        {
+            this->setState(END);
+        }
+        else
+        {
+            Serial.println("sleepon");
+            delay(250);
+            sleep_ok = true;
+            set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+            sleep_enable();
+            sleep_mode();
+            delay(500);
+            wake();
+        }
+        break;
+    case END:
         carDetected = true;
         this->setActive(false);
+        startDetecting = false;
+        break;
     }
-    else
-    {
-        Serial.println("sleepon");
-        delay(250);
-        sleep_ok = true;
-        set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-        sleep_enable();
-        sleep_mode();
-        delay(500);
-        wake();
-    }
-    startDetecting = false;
 }
 
 bool PirDetectionTask::isActive()
