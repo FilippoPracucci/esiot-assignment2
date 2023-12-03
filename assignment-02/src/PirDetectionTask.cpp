@@ -15,12 +15,12 @@ void PirDetectionTask::init(int period)
         RISING);
     this->pir = new Pir(this->pin);
     this->l2 = new Led(L2);
-    /* this->l2->switchOn();
+    this->l2->switchOn();
     for (int i = 0; i < PIR_CALIBRATION_TIME; i++)
     {
         delay(1000);
     }
-    this->l2->switchOff(); */
+    this->l2->switchOff();
     this->setState(DETECTING);
     Task::init(period);
 }
@@ -45,7 +45,7 @@ void PirDetectionTask::tick()
     switch (this->currentState)
     {
     case DETECTING:
-        if (this->pir->detect())
+        /* if (this->pir->detect())
         {
             this->setState(END);
         }
@@ -59,7 +59,9 @@ void PirDetectionTask::tick()
             sleep_mode();
             delay(500);
             wake();
-        }
+        } */
+        delay(3000);
+        this->setState(END);
         break;
     case END:
         carDetected = true;
