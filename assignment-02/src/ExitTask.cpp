@@ -3,7 +3,9 @@
 
 extern bool washingFinished;
 extern bool startDetecting;
+extern bool blinkStart500;
 extern int completedWashing;
+
 ExitTask::ExitTask()
 {
 }
@@ -25,9 +27,10 @@ void ExitTask::tick()
         Serial.println("washing finished, car is exiting");
         this->sendUpdate = false;
     }
-    switch (this->currenState)
+    switch (this->currentState)
     {
     case OPEN:
+        blinkStart500 = false;
         this->l2->switchOff();
         this->l3->switchOn();
         this->gate->on();

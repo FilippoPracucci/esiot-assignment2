@@ -8,7 +8,7 @@ class Task
 
 public:
     
-    int currenState;
+    int currentState;
     long stateTime;
     bool sendUpdate = true;
 
@@ -51,7 +51,7 @@ public:
 
     void setState(int newState)
     {
-        this->currenState = newState;
+        this->currentState = newState;
         this->stateTime = millis();
     }
 

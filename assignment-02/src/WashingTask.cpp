@@ -3,6 +3,7 @@
 
 extern bool startWashing;
 extern bool washingFinished;
+extern bool blinkStart500;
 
 WashingTask::WashingTask()
 {
@@ -26,13 +27,14 @@ void WashingTask::tick()
         Serial.println("washing routine");
         this->sendUpdate = false;
     }
-    switch (this->currenState)
+    switch (this->currentState)
     {
     case WAITING_BUTTON:
         if (this->button->isPressed())
         {
             this->setState(WASHING);
             this->startTemp = -1;
+            blinkStart500 = true;
         }
         break;
     case WASHING:
@@ -81,7 +83,6 @@ void WashingTask::tick()
             this->lcd->showMessage("Detected a problem");
             this->changeMsg = false;
         }
-        /* If there is something available in the serial line */
         while (!fixFlag)
         {
             /* If there is something available in the serial line */
@@ -96,20 +97,6 @@ void WashingTask::tick()
                 }
             }
         }
-        /* if (Serial.available() == 1)
-        {
-            Serial.println("LEGGO SERIALE");
-            String answer = Serial.readStringUntil('\n');
-            if (answer == "fix")
-            {
-                this->setState(WASHING);
-                this->startTemp = -1;
-            }
-        }
-        else
-        {
-            Serial.println("Nulla sulla seriale di arduino");
-        } */
         break;
     case END:
         this->lcd->showMessage("Washing complete you can leave!");

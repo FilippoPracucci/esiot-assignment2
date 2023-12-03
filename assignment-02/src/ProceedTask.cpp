@@ -27,7 +27,7 @@ void ProceedTask::tick()
         Serial.println("a car is entering");
         this->sendUpdate = false;
     }
-    switch (this->currenState)
+    switch (this->currentState)
     {
     case MONITORING:
         if (this->changeMsg)

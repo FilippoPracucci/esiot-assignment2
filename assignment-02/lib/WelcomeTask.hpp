@@ -16,10 +16,17 @@ public:
     bool isActive() override;
 
 private:
+    enum
+    {
+        START,
+        WAITING,
+        END
+    } state;
     Led *l1;
     String welcomeMessage;
     Lcd *lcd;
     Gate *gate;
+    bool sendUpdate;
 };
 
 #endif

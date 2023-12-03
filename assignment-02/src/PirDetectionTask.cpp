@@ -42,7 +42,7 @@ void PirDetectionTask::tick()
         Serial.println("looking for some cars");
         this->sendUpdate = false;
     }
-    switch (this->currenState)
+    switch (this->currentState)
     {
     case DETECTING:
         if (this->pir->detect())

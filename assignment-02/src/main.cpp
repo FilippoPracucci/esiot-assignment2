@@ -7,6 +7,7 @@
 #include "../lib/PreWashingTask.hpp"
 #include "../lib/WashingTask.hpp"
 #include "../lib/ExitTask.hpp"
+#include "../lib/BlinkTask.hpp"
 
 Scheduler sched;
 bool startDetecting;
@@ -15,6 +16,8 @@ bool canProceed = false;
 bool carEntered = false;
 bool startWashing = false;
 bool washingFinished = false;
+bool blinkStart500 = false;
+bool blinkStart100 = false;
 int completedWashing = 0;
 
 void setup()
@@ -47,6 +50,15 @@ void setup()
     exitTask->init();
     sched.addTask(exitTask);
     Serial.println("Fine setup " + String(completedWashing));
+
+    Task *blinkTask500 = new BlinkTask();
+    blinkTask500->init(1000);
+    sched.addTask(blinkTask500);
+
+    Task *blinkTask100 = new BlinkTask();
+    blinkTask100->init(100);
+    sched.addTask(blinkTask100);
+
 }
 
 void loop()

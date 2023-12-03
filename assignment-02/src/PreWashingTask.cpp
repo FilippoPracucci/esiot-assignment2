@@ -4,6 +4,7 @@
 extern bool canProceed;
 extern bool carEntered;
 extern bool startWashing;
+extern bool blinkStart100;
 
 PreWashingTask::PreWashingTask()
 {
@@ -26,6 +27,7 @@ void PreWashingTask::tick()
     this->gate->on();
     this->gate->close();
     this->gate->off();
+    blinkStart100 = false;
     this->l1->switchOff();
     this->l2->switchOn();
     this->lcd->showMessage(this->readyMessage);
