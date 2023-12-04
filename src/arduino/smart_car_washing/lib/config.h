@@ -11,7 +11,7 @@
 
 #define WELCOME_PERIOD 500
 
-#define PIR_PIN 2 //13
+#define PIR_PIN 2
 
 #define N1 2500
 

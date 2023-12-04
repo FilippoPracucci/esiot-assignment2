@@ -1,3 +1,8 @@
+/*
+* Riccardo Penazzi riccardo.penazzi@studio.unibo.it 0001021734
+* Filippo Pracucci filippo.pracucci@studio.unibo.it 0001020606
+*/
+
 #include <Arduino.h>
 #include "../lib/Scheduler.hpp"
 #include "../lib/PirDetectionTask.hpp"
@@ -49,7 +54,6 @@ void setup()
     Task *exitTask = new ExitTask(); 
     exitTask->init(EXIT_PERIOD);
     sched.addTask(exitTask);
-    Serial.println("Fine setup " + String(completedWashing));
 
     Task *blinkTask500 = new BlinkTask();
     blinkTask500->init(1000);
