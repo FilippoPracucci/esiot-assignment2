@@ -8,14 +8,14 @@ ProceedTask::ProceedTask()
 {
 }
 
-void ProceedTask::init()
+void ProceedTask::init(int period)
 {
-    Task::init(1);
+    Task::init(period);
     this->proceedMessage = "Proceed to the Washing Area";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
     this->lcd->clear();
     this->sonar = new Sonar(ECHO_PIN, TRIG_PIN);
-    this->l2 = new BlinkingLed(L2);
+    this->l2 = new Led(L2);
     this->monitoringTimer = -1;
     this->setState(MONITORING);
 }

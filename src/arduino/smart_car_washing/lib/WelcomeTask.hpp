@@ -11,7 +11,7 @@ class WelcomeTask : public Task
 
 public:
     WelcomeTask();
-    void init();
+    void init(int period);
     void tick();
     bool isActive() override;
 

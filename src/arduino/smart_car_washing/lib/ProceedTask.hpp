@@ -4,13 +4,12 @@
 #include "Lcd.hpp"
 #include "Sonar.hpp"
 #include "Task.hpp"
-#include "BlinkingLed.hpp"
-
+#include "Led.hpp"
 class ProceedTask : public Task
 {
 public:
     ProceedTask();
-    void init();
+    void init(int period);
     void tick();
     bool isActive() override;
 
@@ -20,7 +19,7 @@ private:
     Lcd *lcd;
     Sonar *sonar;
     String proceedMessage;
-    BlinkingLed *l2;
+    Led *l2;
     bool changeMsg = true;
 };
 

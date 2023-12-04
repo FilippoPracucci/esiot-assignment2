@@ -9,12 +9,12 @@ WashingTask::WashingTask()
 {
 }
 
-void WashingTask::init()
+void WashingTask::init(int period)
 {
-    Task::init(1);
+    Task::init(period);
     this->button = new Button(BUTTON_PIN);
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS);
-    this->l2 = new BlinkingLed(L2);
+    this->l2 = new Led(L2);
     this->tmp = new Tmp(TMP_PIN);
     this->setState(WAITING_BUTTON);
     this->startTemp = -1;
@@ -38,7 +38,6 @@ void WashingTask::tick()
         }
         break;
     case WASHING:
-        Serial.println("Sono washing");
         this->sendWarning = true;
         this->fixFlag = false;
         if (this->elapsedTime() > N3)
@@ -57,12 +56,9 @@ void WashingTask::tick()
                 {
                     this->startTemp = millis();
                 }
-                else
+                else if (millis() - this->startTemp > N4)
                 {
-                    if (millis() - this->startTemp > N4)
-                    {
-                        this->setState(ERROR);
-                    }
+                    this->setState(ERROR);
                 }
             }
             else
@@ -72,7 +68,6 @@ void WashingTask::tick()
         }
         break;
     case ERROR:
-        Serial.println("Sono error");
         if (this->sendWarning)
         {
             Serial.println("warning");

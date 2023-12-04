@@ -9,9 +9,9 @@ WelcomeTask::WelcomeTask()
 {
 }
 
-void WelcomeTask::init()
+void WelcomeTask::init(int period)
 {
-    Task::init(1);
+    Task::init(period);
     this->welcomeMessage = "Welcome";
     this->lcd = new Lcd(0x27, LCD_COLS, LCD_ROWS); // address in config file to change in hexadecimal
     this->lcd->clear();

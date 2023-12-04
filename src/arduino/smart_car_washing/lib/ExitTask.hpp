@@ -11,7 +11,7 @@ class ExitTask : public Task
 
 public:
     ExitTask();
-    void init();
+    void init(int period);
     void tick();
     bool isActive() override;
 

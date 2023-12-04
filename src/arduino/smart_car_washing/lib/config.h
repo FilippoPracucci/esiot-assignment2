@@ -3,6 +3,14 @@
 
 #define PIR_PERIOD 1000
 
+#define EXIT_PERIOD 200
+
+#define PROCEED_PERIOD 200
+
+#define WASHING_PERIOD 100
+
+#define WELCOME_PERIOD 500
+
 #define PIR_PIN 2 //13
 
 #define N1 2500
